@@ -27,7 +27,7 @@ class Product(models.Model):
         unique_together = (("title", "category"),)
 
     def __str__(self):
-        return self.name
+        return self.title
 
 
 class ProductStock(models.Model):

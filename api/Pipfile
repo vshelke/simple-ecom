@@ -10,6 +10,7 @@ psycopg = {extras = ["binary"], version = "*"}
 django-cors-headers = "*"
 whitenoise = "*"
 djangorestframework = "*"
+requests = "*"
 
 [dev-packages]
 isort = "*"
