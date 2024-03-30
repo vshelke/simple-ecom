@@ -1,0 +1,58 @@
+Table user {
+  id integer [primary key]
+  name varchar
+  email varchar [not null, unique]
+  password varchar
+}
+
+Table product {
+  id integer [primary key]
+  title varchar
+  description text
+  price decimal
+  image url
+  category_id integer
+  Indexes {
+    (title, category_id) [unique]
+  }
+}
+
+Table product_category {
+  id integer [primary key]
+  name varchar [not null, unique]
+}
+
+Table product_rating {
+  id integer [primary key]
+  rating decimal
+  user_id integer
+  product_id integer
+  Indexes {
+    (user_id, product_id) [unique]
+  }
+}
+
+Table cart {
+  id integer [primary key]
+  price decimal
+  quantity integer
+  amount decimal
+  user_id integer
+  product_id integer
+  Indexes {
+    (user_id, product_id) [unique]
+  }  
+}
+
+Table product_stock {
+  id integer [primary key]
+  quantity integer
+  product_id integer
+}
+
+Ref: product.category_id > product_category.id
+Ref: product_rating.product_id > product.id
+Ref: product_rating.user_id > user.id
+Ref: cart.user_id > user.id
+Ref: cart.product_id > product.id
+Ref: product_stock.product_id > product.id
