@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class ProductCategory(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
@@ -31,7 +32,9 @@ class Product(models.Model):
 
 class ProductStock(models.Model):
     quantity = models.PositiveIntegerField()
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="stocks", unique=True)
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name="stocks", unique=True
+    )
 
     class Meta:
         db_table = "product_stock"

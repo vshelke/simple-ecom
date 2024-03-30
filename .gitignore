@@ -1,0 +1,3 @@
+experiments/
+config/.env
+config/.secrets.env
