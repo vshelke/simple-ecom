@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { CircleUser, Menu, Package2, Search, ShoppingCart } from "lucide-react";
-import { Badge } from "@/components/ui/badge"
+import { Badge } from "@/components/ui/badge";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useEffect, useState } from "react";
 import { useCartStore } from "@/lib/cart-store";
+import DebouncedInput from "./debounced-input";
 
 export interface IHeader {}
 
@@ -87,8 +88,7 @@ const Header: React.FC<IHeader> = ({}) => {
         <form className="ml-auto flex-1 sm:flex-initial">
           <div className="relative">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="search"
+            <DebouncedInput
               placeholder="Search products..."
               className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
             />
@@ -96,7 +96,9 @@ const Header: React.FC<IHeader> = ({}) => {
         </form>
         <Button variant="secondary" size="icon" className="rounded-full">
           <ShoppingCart className="h-5 w-5" />
-          <Badge className="absolute mb-8 ml-8 rounded-full px-1.5 py-0.5 text-xs">{count}</Badge>
+          <Badge className="absolute mb-8 ml-8 rounded-full px-1.5 py-0.5 text-xs">
+            {count}
+          </Badge>
           <span className="sr-only">Shopping cart</span>
         </Button>
         <DropdownMenu>
