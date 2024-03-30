@@ -1,3 +1,11 @@
-from django.shortcuts import render
+from rest_framework import filters, generics
 
-# Create your views here.
+from .models import Product
+from .serializer import ProductSerializer
+
+
+class ProductListView(generics.ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["title", "description", "category__name"]
