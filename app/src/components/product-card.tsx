@@ -29,7 +29,10 @@ const ProductCard: React.FC<IProductCard> = ({ product }) => {
           {product.category}
         </div>
         <Rating rating={product.rating} />
-        <div className="text-xl font-semibold">${product.price}</div>
+        <div className="flex items-center justify-between">
+          <span className="text-xl font-semibold">${product.price}</span>
+          <span className="text-red-500 font-medium">{product.stock === 0 && "Out of Stock"}</span>
+        </div>
       </div>
       <div className="flex items-center justify-between gap-2">
         <AddToCart className="w-1/2" product={product} />
