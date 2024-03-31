@@ -3,6 +3,7 @@ import {
   Sheet,
   SheetContent,
   SheetDescription,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -10,8 +11,9 @@ import {
 import { useCartStore } from "@/lib/cart-store";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "./ui/button";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Trash, Trash2 } from "lucide-react";
 import Image from "next/image";
+import AddToCart from "./add-to-cart";
 
 export interface ICartSheet {}
 
@@ -33,32 +35,66 @@ const CartSheet: React.FC<ICartSheet> = ({}) => {
       <SheetContent className="overflow-y-scroll">
         <SheetHeader>
           <SheetTitle>Your Cart</SheetTitle>
-          <SheetDescription>
-            All your cart items in one place. Ready to checkout?
-          </SheetDescription>
+          <SheetDescription>All your cart items in one place.</SheetDescription>
         </SheetHeader>
         <div className="mt-7">
           {cart.map((item) => (
-            <div key={item.id} className="flex items-center my-5">
-              <div>
+            <div key={item.id} className="flex items-start my-5 gap-3">
+              <div className="border rounded-lg py-2 shadow-sm w-1/5 h-16">
                 <Image
+                  className="rounded-lg object-contain mx-auto h-full"
                   src={item.image}
                   alt={item.title}
-                  width={70}
-                  height={70}
+                  width={50}
+                  height={50}
                 />
               </div>
-              <div className="flex-1 ml-3">
-                <h3>{item.title}</h3>
-                <p>${item.price}</p>
-                <p>Quantity: {item.quantity}</p>
+              <div className="flex-1">
+                <h3 className="line-clamp-1 font-medium mb-1">{item.title}</h3>
+                <p className=" text-lg mb-3">${item.price}</p>
+                <div className="flex space-x-2">
+                  <AddToCart product={item} />
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="text-red-500 rounded-full"
+                    onClick={() => {
+                      useCartStore.getState().removeFromCart(item.id);
+                    }}
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </Button>
+                </div>
               </div>
-              <div>
-                <Button variant="outline">Remove</Button>
+              <div className="w-1/5">
+                <p className="text-lg font-semibold text-right">
+                  ${item.amount.toFixed(2)}
+                </p>
               </div>
             </div>
           ))}
         </div>
+        <SheetFooter className="items-center my-10">
+          <div className="flex items-center space-x-2 w-1/2">
+            <p className="text-lg font-semibold">Total:</p>
+            <p className="text-lg font-semibold">
+              ${useCartStore.getState().total().toFixed(2)}
+            </p>
+          </div>
+          <div className="flex-1">
+            <Button
+              disabled={!cart.length}
+              variant="outline"
+              className="w-full"
+              onClick={() => {
+                useCartStore.getState().clearCart();
+              }}
+            >
+              <Trash className="w-4 h-4 mr-2" />
+              Clear Cart
+            </Button>
+          </div>
+        </SheetFooter>
       </SheetContent>
     </Sheet>
   );

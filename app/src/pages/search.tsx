@@ -1,33 +1,32 @@
 import Layout from "@/components/layout";
-import { Product } from "@/lib/types";
+import { ProductsResponse } from "@/lib/types";
 import ProductListing from "@/templates/product-listing";
 import { useRouter } from "next/router";
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement } from "react";
 import { NextPageWithLayout } from "./_app";
+import LoadingPage from "@/templates/loading";
+import Errorpage from "@/templates/error";
+import NoDataPage from "@/templates/no-data";
+import { useFetch } from "@/lib/hooks";
 
 export interface ISearchPage {}
 
 const SearchPage: NextPageWithLayout<ISearchPage> = ({}) => {
   const router = useRouter();
-  const [data, setData] = useState(null);
-  const [isLoading, setLoading] = useState(true);
+  const query = router.query.q as string;
+  const { data, loading, error } = useFetch<ProductsResponse>(
+    `${process.env.NEXT_PUBLIC_API_HOST}/products/?search=${query}`
+  );
 
-  useEffect(() => {
-    fetch(`http://localhost:3301/api/ecom/products/?search=${router.query.q}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-        setLoading(false);
-      });
-  }, [router]);
-
-  if (isLoading) return <p>Loading...</p>;
-  if (!data) return <p>No profile data</p>;
+  if (loading) return <LoadingPage />;
+  if (error) return <Errorpage error={(error as any)?.message} />;
+  if (!data || data.results.length === 0)
+    return <NoDataPage message="No products found" />;
 
   return (
     <ProductListing
-      title={`Search Results for "${router.query.q}"`}
-      products={(data as any).results as Product[]}
+      title={`Search Results for "${query}"`}
+      products={data.results}
     />
   );
 };

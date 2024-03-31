@@ -14,5 +14,13 @@ export type Product = {
 };
 
 export interface CartItem extends Product {
+  amount: number;
   quantity: number
+};
+
+export type ProductsResponse = {
+  count: number;
+  next: string;
+  previous: string;
+  results: Product[];
 };

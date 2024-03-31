@@ -1,10 +1,11 @@
 import React from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import { Product } from "@/lib/types";
 import AddToCart from "./add-to-cart";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { Star } from "lucide-react";
+import Rating from "./rating";
 
 export interface IProductCard {
   product: Product;
@@ -12,33 +13,31 @@ export interface IProductCard {
 
 const ProductCard: React.FC<IProductCard> = ({ product }) => {
   return (
-    <Card key={product.id}>
-      <CardHeader>
-        <div className="h-40 overflow-hidden mb-5">
-          <Image
-            src={product.image}
-            alt={product.title}
-            width={500}
-            height={500}
-          />
+    <div className="space-y-3">
+      <div className="border rounded-lg h-60 py-5 shadow-sm">
+        <Image
+          className="rounded-lg object-contain mx-auto h-full"
+          src={product.image}
+          alt={product.title}
+          width={240}
+          height={240}
+        />
+      </div>
+      <div>
+        <h3 className="font-medium text-lg line-clamp-1">{product.title}</h3>
+        <div className="text-base text-muted-foreground capitalize">
+          {product.category}
         </div>
-      </CardHeader>
-      <CardContent>
-        <div className="grid gap-2">
-          <h3 className="font-medium text-base">{product.title}</h3>
-          <div className="text-sm text-muted-foreground capitalize">
-            {product.category}
-          </div>
-          <div className="text-lg font-semibold">${product.price}</div>
-          <div>
-            <AddToCart product={product} />
-            <Button variant="outline" asChild>
-              <Link href={`/products/${product.id}`}>View Details</Link>
-            </Button>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+        <Rating rating={product.rating} />
+        <div className="text-xl font-semibold">${product.price}</div>
+      </div>
+      <div className="flex items-center justify-between gap-2">
+        <AddToCart className="w-1/2" product={product} />
+        <Button className="w-1/2" variant="outline" asChild>
+          <Link href={`/products/${product.id}`}>View Details</Link>
+        </Button>
+      </div>
+    </div>
   );
 };
 

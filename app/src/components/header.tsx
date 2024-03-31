@@ -11,39 +11,29 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useEffect, useState } from "react";
 import DebouncedInput from "./debounced-input";
 import CartSheet from "./cart-sheet";
+import { useFetch } from "@/lib/hooks";
 
 export interface IHeader {}
 
 const Header: React.FC<IHeader> = ({}) => {
-  const [data, setData] = useState(null);
-  const [isLoading, setLoading] = useState(true);
+  const { data } = useFetch(`${process.env.NEXT_PUBLIC_API_HOST}/categories/`);
+  const categories = (data as any)?.results || [];
 
-  useEffect(() => {
-    fetch("http://localhost:3301/api/ecom/categories/")
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-        setLoading(false);
-      });
-  }, []);
-
-  if (isLoading) return <p>Loading...</p>;
-  if (!data) return <p>No profile data</p>;
+  if (!data) return null;
 
   return (
-    <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
+    <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 z-10">
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
         <Link
           href="/"
-          className="flex items-center gap-2 text-lg font-semibold md:text-base"
+          className="flex items-center gap-2 text-lg font-semibold md:text-base whitespace-nowrap"
         >
           <Package2 className="h-6 w-6" />
-          <span className="sr-only">Simple Ecom</span>
+          <span className="">Simple Ecom</span>
         </Link>
-        {(data as any).results?.map((category: any) => (
+        {categories.map((category: any) => (
           <Link
             key={category.id}
             href={`/category/${category.id}`}
@@ -69,7 +59,7 @@ const Header: React.FC<IHeader> = ({}) => {
               <Package2 className="h-6 w-6" />
               <span className="sr-only">Simple Ecom</span>
             </Link>
-            {(data as any).results?.map((category: any) => (
+            {categories.map((category: any) => (
               <Link
                 key={category.id}
                 href={`/category/${category.id}`}
