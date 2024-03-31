@@ -4,7 +4,7 @@ import { NextPageWithLayout } from "../_app";
 import { useRouter } from "next/router";
 import { Product } from "@/lib/types";
 import Image from "next/image";
-import AddToCart from "@/components/add-to-card";
+import AddToCart from "@/components/add-to-cart";
 
 export interface IProductDetailPage {}
 

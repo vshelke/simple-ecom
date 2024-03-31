@@ -22,12 +22,12 @@ const AddToCart: React.FC<IAddToCart> = ({ product }) => {
           <Minus />
         </Button>
         <span className="text-2xl">{cartProduct.quantity}</span>
-        <Button onClick={() => useCartStore.getState().updateQuantity(product.id, cartProduct.quantity + 1)}>
+        <Button onClick={() => useCartStore.getState().updateQuantity(product.id, cartProduct.quantity + 1)} disabled={product.stock <= cartProduct.quantity}>
           <Plus />
         </Button>
       </div>
     ) : (
-      <Button onClick={() => useCartStore.getState().addToCart(product)}>
+      <Button onClick={() => useCartStore.getState().addToCart(product)} disabled={product.stock <= 0}>
         Add to Cart
       </Button>
     )

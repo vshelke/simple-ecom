@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { CircleUser, Menu, Package2, Search, ShoppingCart } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { CircleUser, Menu, Package2, Search } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -11,18 +10,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useEffect, useState } from "react";
-import { useCartStore } from "@/lib/cart-store";
 import DebouncedInput from "./debounced-input";
+import CartSheet from "./cart-sheet";
 
 export interface IHeader {}
 
 const Header: React.FC<IHeader> = ({}) => {
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(true);
-  const count = useCartStore((state) => state.itemCount());
 
   useEffect(() => {
     fetch("http://localhost:3301/api/ecom/categories/")
@@ -94,13 +91,7 @@ const Header: React.FC<IHeader> = ({}) => {
             />
           </div>
         </form>
-        <Button variant="secondary" size="icon" className="rounded-full">
-          <ShoppingCart className="h-5 w-5" />
-          <Badge className="absolute mb-8 ml-8 rounded-full px-1.5 py-0.5 text-xs">
-            {count}
-          </Badge>
-          <span className="sr-only">Shopping cart</span>
-        </Button>
+        <CartSheet />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="secondary" size="icon" className="rounded-full">

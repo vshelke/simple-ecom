@@ -29,6 +29,13 @@ class Product(models.Model):
     def __str__(self):
         return self.title
 
+    @property
+    def stock(self):
+        first_stock = self.stocks.first()
+        if first_stock:
+            return first_stock.quantity
+        return 0
+
 
 class ProductStock(models.Model):
     quantity = models.PositiveIntegerField()

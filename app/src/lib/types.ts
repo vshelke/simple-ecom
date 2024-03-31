@@ -10,6 +10,7 @@ export type Product = {
     rate: number;
     count: number;
   };
+  stock: number;
 };
 
 export interface CartItem extends Product {

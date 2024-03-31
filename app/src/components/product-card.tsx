@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import { Product } from "@/lib/types";
-import AddToCart from "./add-to-card";
+import AddToCart from "./add-to-cart";
 import { Button } from "./ui/button";
 import Link from "next/link";
 
