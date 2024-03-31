@@ -11,6 +11,7 @@ django-cors-headers = "*"
 whitenoise = "*"
 djangorestframework = "*"
 requests = "*"
+django-filter = "*"
 
 [dev-packages]
 isort = "*"
