@@ -3,6 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import { Product } from "@/lib/types";
 import AddToCart from "./add-to-card";
+import { Button } from "./ui/button";
+import Link from "next/link";
 
 export interface IProductCard {
   product: Product;
@@ -28,7 +30,12 @@ const ProductCard: React.FC<IProductCard> = ({ product }) => {
             {product.category}
           </div>
           <div className="text-lg font-semibold">${product.price}</div>
-          <AddToCart product={product}/>
+          <div>
+            <AddToCart product={product} />
+            <Button variant="outline" asChild>
+              <Link href={`/products/${product.id}`}>View Details</Link>
+            </Button>
+          </div>
         </div>
       </CardContent>
     </Card>

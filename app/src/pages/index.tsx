@@ -2,8 +2,11 @@ import Layout from "@/components/layout";
 import { Product } from "@/lib/types";
 import ProductListing from "@/templates/product-listing";
 import { ReactElement, useEffect, useState } from "react";
+import { NextPageWithLayout } from "./_app";
 
-function HomePage() {
+export interface IHomePage {}
+
+const HomePage: NextPageWithLayout<IHomePage> = ({}) => {
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(true);
 
@@ -19,8 +22,13 @@ function HomePage() {
   if (isLoading) return <p>Loading...</p>;
   if (!data) return <p>No profile data</p>;
 
-  return <ProductListing title="All Products" products={(data as any).results as Product[]} />;
-}
+  return (
+    <ProductListing
+      title="All Products"
+      products={(data as any).results as Product[]}
+    />
+  );
+};
 
 HomePage.getLayout = (page: ReactElement) => {
   return <Layout>{page}</Layout>;

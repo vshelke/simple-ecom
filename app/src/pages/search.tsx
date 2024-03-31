@@ -3,9 +3,12 @@ import { Product } from "@/lib/types";
 import ProductListing from "@/templates/product-listing";
 import { useRouter } from "next/router";
 import { ReactElement, useEffect, useState } from "react";
+import { NextPageWithLayout } from "./_app";
 
-function SearchPage() {
-  const router = useRouter()
+export interface ISearchPage {}
+
+const SearchPage: NextPageWithLayout<ISearchPage> = ({}) => {
+  const router = useRouter();
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(true);
 
@@ -21,8 +24,13 @@ function SearchPage() {
   if (isLoading) return <p>Loading...</p>;
   if (!data) return <p>No profile data</p>;
 
-  return <ProductListing title={`Search Results for "${router.query.q}"`} products={(data as any).results as Product[]} />;
-}
+  return (
+    <ProductListing
+      title={`Search Results for "${router.query.q}"`}
+      products={(data as any).results as Product[]}
+    />
+  );
+};
 
 SearchPage.getLayout = (page: ReactElement) => {
   return <Layout>{page}</Layout>;

@@ -16,3 +16,8 @@ class ProductCategoryListView(generics.ListAPIView):
     serializer_class = ProductCategorySerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ["name"]
+
+
+class ProductDetailView(generics.RetrieveAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
