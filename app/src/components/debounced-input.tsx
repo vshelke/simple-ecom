@@ -9,19 +9,34 @@ const DebouncedInput: React.FC<IDebouncedInput> = ({ ...props }) => {
   const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (event: any) => {
+    event.preventDefault();
     setInputValue(event.target.value);
+  };
+
+  const handleKeyDown = (event: any) => {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+    }
   };
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
+      if (!inputValue) return;
       router.push(`/search?q=${inputValue}`);
     }, 500);
     return () => clearTimeout(timeoutId);
-  }, [inputValue, router]);
+  }, [inputValue]);
 
-  return <Input value={inputValue} onChange={handleInputChange} {...props} />;
+  return (
+    <Input
+      value={inputValue}
+      onChange={handleInputChange}
+      onKeyDown={handleKeyDown}
+      {...props}
+    />
+  );
 };
 
-DebouncedInput.defaultProps = {}
+DebouncedInput.defaultProps = {};
 
-export default DebouncedInput
+export default DebouncedInput;
