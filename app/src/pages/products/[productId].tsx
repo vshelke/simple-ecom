@@ -8,7 +8,7 @@ import AddToCart from "@/components/add-to-cart";
 import Rating from "@/components/rating";
 import { useFetch } from "@/lib/hooks";
 import LoadingPage from "@/templates/loading";
-import Errorpage from "@/templates/error";
+import ErrorPage from "@/templates/error";
 import NoDataPage from "@/templates/no-data";
 
 export interface IProductDetailPage {}
@@ -21,7 +21,7 @@ const ProductDetailPage: NextPageWithLayout<IProductDetailPage> = ({}) => {
   );
 
   if (loading) return <LoadingPage />;
-  if (error) return <Errorpage error={(error as any)?.message} />;
+  if (error) return <ErrorPage error={(error as any)?.message} />;
   if (!data)
     return <NoDataPage message="Product details could not be found." />;
 

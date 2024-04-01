@@ -2,9 +2,9 @@ import { create } from "zustand";
 import { CartItem, Product } from "./types";
 
 interface CartState {
+  cart: CartItem[];
   itemCount: () => number;
   total: () => number;
-  cart: CartItem[];
   addToCart: (product: Product) => void;
   removeFromCart: (productId: number) => void;
   updateQuantity: (productId: number, quantity: number) => void;

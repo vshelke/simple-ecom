@@ -85,6 +85,7 @@ const Header: React.FC<IHeader> = ({}) => {
             <DebouncedInput
               placeholder="Search products..."
               className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
+              cb={(value) => router.push(`/search?q=${value}`)}
             />
           </div>
         </form>

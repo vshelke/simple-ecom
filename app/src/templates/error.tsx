@@ -1,11 +1,11 @@
 import { ServerCrash } from "lucide-react";
 import React from "react";
 
-export interface IErrorpage {
+export interface IErrorPage {
   error?: string;
 }
 
-const Errorpage: React.FC<IErrorpage> = ({ error }) => {
+const ErrorPage: React.FC<IErrorPage> = ({ error }) => {
   return (
     <div className="h-full my-auto">
       <ServerCrash className="w-32 h-32 mx-auto text-red-600 mb-3" />
@@ -19,6 +19,6 @@ const Errorpage: React.FC<IErrorpage> = ({ error }) => {
   );
 };
 
-Errorpage.defaultProps = {};
+ErrorPage.defaultProps = {};
 
-export default Errorpage;
+export default ErrorPage;

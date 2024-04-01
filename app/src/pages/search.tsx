@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { ReactElement } from "react";
 import { NextPageWithLayout } from "./_app";
 import LoadingPage from "@/templates/loading";
-import Errorpage from "@/templates/error";
+import ErrorPage from "@/templates/error";
 import NoDataPage from "@/templates/no-data";
 import { useFetch } from "@/lib/hooks";
 
@@ -19,7 +19,7 @@ const SearchPage: NextPageWithLayout<ISearchPage> = ({}) => {
   );
 
   if (loading) return <LoadingPage />;
-  if (error) return <Errorpage error={(error as any)?.message} />;
+  if (error) return <ErrorPage error={(error as any)?.message} />;
   if (!data || data.results.length === 0)
     return <NoDataPage message="No products found" />;
 

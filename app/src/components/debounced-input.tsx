@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Input, InputProps } from "./ui/input";
-import { useRouter } from "next/router";
 
-export interface IDebouncedInput extends InputProps {}
+export interface IDebouncedInput extends InputProps {
+  cb?: (value: string) => void;
+}
 
-const DebouncedInput: React.FC<IDebouncedInput> = ({ ...props }) => {
-  const router = useRouter();
+const DebouncedInput: React.FC<IDebouncedInput> = ({ cb, ...props }) => {
   const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (event: any) => {
@@ -22,9 +22,10 @@ const DebouncedInput: React.FC<IDebouncedInput> = ({ ...props }) => {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (!inputValue) return;
-      router.push(`/search?q=${inputValue}`);
+      cb && cb(inputValue);
     }, 500);
     return () => clearTimeout(timeoutId);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputValue]);
 
   return (

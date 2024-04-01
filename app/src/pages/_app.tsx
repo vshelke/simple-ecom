@@ -5,6 +5,7 @@ import type { AppProps } from "next/app";
 import { Inter as FontSans } from "next/font/google";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner"
+import dynamic from "next/dynamic";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -41,4 +42,6 @@ function App({
   );
 }
 
-export default App;
+export default dynamic(() => Promise.resolve(App), {
+  ssr: false,
+});
