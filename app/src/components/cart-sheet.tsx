@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Sheet,
   SheetContent,
@@ -14,12 +14,19 @@ import { Button } from "./ui/button";
 import { ShoppingCart, Trash, Trash2 } from "lucide-react";
 import Image from "next/image";
 import AddToCart from "./add-to-cart";
+import { CartRepository } from "@/lib/cart-repository";
 
 export interface ICartSheet {}
 
 const CartSheet: React.FC<ICartSheet> = ({}) => {
   const cart = useCartStore((state) => state.cart);
   const count = useCartStore((state) => state.itemCount());
+
+  useEffect(() => {
+    CartRepository.getCart().then((items) => {
+      useCartStore.setState({ cart: items });
+    });
+  }, []);
 
   return (
     <Sheet>

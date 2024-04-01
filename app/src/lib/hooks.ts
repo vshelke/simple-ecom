@@ -47,4 +47,4 @@ const useFetch = <T>(url: string) => {
   return { data, loading, error };
 };
 
-export { useFetch };
+export { useFetch, authenticatedFetch };
