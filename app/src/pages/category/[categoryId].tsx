@@ -15,7 +15,7 @@ const CategoryPage: NextPageWithLayout<ICategoryPage> = ({}) => {
   const router = useRouter();
   const { categoryId } = router.query
   const { data, loading, error } = useFetch<ProductsResponse>(
-    `${process.env.NEXT_PUBLIC_API_HOST}/products/?category_id=${categoryId}`
+    `${process.env.NEXT_PUBLIC_API_HOST}/ecom/products/?category_id=${categoryId}`
   );
 
   if (loading) return <LoadingPage />;

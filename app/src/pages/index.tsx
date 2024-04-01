@@ -12,7 +12,7 @@ export interface IHomePage {}
 
 const HomePage: NextPageWithLayout<IHomePage> = ({}) => {
   const { data, loading, error } = useFetch<ProductsResponse>(
-    `${process.env.NEXT_PUBLIC_API_HOST}/products/`
+    `${process.env.NEXT_PUBLIC_API_HOST}/ecom/products/`
   );
   const results = data?.results || [];
 

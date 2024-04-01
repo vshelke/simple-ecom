@@ -14,11 +14,14 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import DebouncedInput from "./debounced-input";
 import CartSheet from "./cart-sheet";
 import { useFetch } from "@/lib/hooks";
+import { useRouter } from "next/router";
 
 export interface IHeader {}
 
 const Header: React.FC<IHeader> = ({}) => {
-  const { data } = useFetch(`${process.env.NEXT_PUBLIC_API_HOST}/categories/`);
+  const router = useRouter();
+  const categoryId = router.query?.categoryId as string | undefined;
+  const { data } = useFetch(`${process.env.NEXT_PUBLIC_API_HOST}/ecom/categories/`);
   const categories = (data as any)?.results || [];
 
   if (!data) return null;
@@ -37,7 +40,11 @@ const Header: React.FC<IHeader> = ({}) => {
           <Link
             key={category.id}
             href={`/category/${category.id}`}
-            className="text-muted-foreground transition-colors hover:text-foreground capitalize whitespace-nowrap"
+            className={`${
+              parseInt(categoryId ?? "0") !== category.id
+                ? "text-muted-foreground"
+                : ""
+            } transition-colors hover:text-foreground capitalize whitespace-nowrap`}
           >
             {category.name}
           </Link>
@@ -90,12 +97,11 @@ const Header: React.FC<IHeader> = ({}) => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Settings</DropdownMenuItem>
-            <DropdownMenuItem>Support</DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Logout</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => {
+              localStorage.removeItem("token");
+              localStorage.removeItem("refresh");
+              router.push("/login");
+            }}>Logout</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

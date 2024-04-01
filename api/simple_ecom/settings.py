@@ -36,7 +36,7 @@ SECRET_KEY = env_vars.get(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env_vars.get("DEBUG", "1") == "1"
 
-ALLOWED_HOSTS = [".vercel.app", "localhost", "host.docker.internal"]
+ALLOWED_HOSTS = [".vercel.app", "localhost", "host.docker.internal", "192.168.1.5"]
 CSRF_TRUSTED_ORIGINS = [
     "https://*.vercel.app",
 ]
@@ -57,6 +57,7 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "django_filters",
+    "rest_framework_simplejwt",
 ]
 
 PROJECT_APPS = ["core", "ecom"]
@@ -101,6 +102,7 @@ AUTH_USER_MODEL = "core.BaseUser"
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
         "rest_framework.authentication.TokenAuthentication",
     ],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",

@@ -17,7 +17,7 @@ const ProductDetailPage: NextPageWithLayout<IProductDetailPage> = ({}) => {
   const router = useRouter();
   const { productId } = router.query;
   const { data, loading, error } = useFetch<Product>(
-    `${process.env.NEXT_PUBLIC_API_HOST}/products/${productId}`
+    `${process.env.NEXT_PUBLIC_API_HOST}/ecom/products/${productId}`
   );
 
   if (loading) return <LoadingPage />;

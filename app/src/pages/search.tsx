@@ -15,7 +15,7 @@ const SearchPage: NextPageWithLayout<ISearchPage> = ({}) => {
   const router = useRouter();
   const query = router.query.q as string;
   const { data, loading, error } = useFetch<ProductsResponse>(
-    `${process.env.NEXT_PUBLIC_API_HOST}/products/?search=${query}`
+    `${process.env.NEXT_PUBLIC_API_HOST}/ecom/products/?search=${query}`
   );
 
   if (loading) return <LoadingPage />;
