@@ -8,6 +8,7 @@ class ProductCategory(models.Model):
         db_table = "product_category"
         verbose_name = "Product Category"
         verbose_name_plural = "Product Categories"
+        ordering = ["id"]
 
     def __str__(self):
         return self.name
@@ -25,6 +26,7 @@ class Product(models.Model):
         verbose_name = "Product"
         verbose_name_plural = "Products"
         unique_together = (("title", "category"),)
+        ordering = ["id"]
 
     def __str__(self):
         return self.title

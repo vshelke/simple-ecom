@@ -1,7 +1,7 @@
 from rest_framework import permissions
 from rest_framework.generics import CreateAPIView
-from .models import BaseUser
 
+from .models import BaseUser
 from .serializers import BaseUserSerializer
 
 
