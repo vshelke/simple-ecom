@@ -11,5 +11,16 @@ services:
     env_file:
       - ./config/.env
 
+  simple_ecom:
+    container_name: se_simple_ecom
+    image: ghcr.io/vshelke/simplyparse/api:latest
+    restart: always
+    ports:
+      - "45679:80"
+    depends_on:
+      - postgres
+    env_file:
+      - ./config/.env
+
 volumes:
   db_simple_ecom_v1:

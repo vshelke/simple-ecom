@@ -36,7 +36,7 @@ SECRET_KEY = env_vars.get(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env_vars.get("DEBUG", "1") == "1"
 
-ALLOWED_HOSTS = [".vercel.app", "localhost", "host.docker.internal", "192.168.1.5"]
+ALLOWED_HOSTS = [".vercel.app", "localhost", "host.docker.internal", "192.168.1.5", "159.89.175.127"]
 CSRF_TRUSTED_ORIGINS = [
     "https://*.vercel.app",
 ]
