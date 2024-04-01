@@ -20,6 +20,9 @@ export const refreshToken = async () => {
       body: JSON.stringify({ refresh: localStorage.getItem("refresh") }),
     });
     const result = await response.json();
+    if (!response.ok) {
+      return false;
+    }
     localStorage.setItem("token", result.access);
     return true
   } catch (error) {

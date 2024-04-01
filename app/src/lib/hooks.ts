@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { refreshToken } from "./utils";
 
 const authenticatedFetch = async (
@@ -26,11 +26,11 @@ const authenticatedFetch = async (
 };
 
 const useFetch = <T>(url: string) => {
-  const [data, setData] = React.useState<T | null>(null);
-  const [loading, setLoading] = React.useState<boolean>(true);
-  const [error, setError] = React.useState<any>(null);
+  const [data, setData] = useState<T | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<any>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const result = await authenticatedFetch(url);

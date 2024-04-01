@@ -1,13 +1,13 @@
 import { Progress } from "@/components/ui/progress";
 import { Boxes } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export interface ILoadingPage {}
 
 const LoadingPage: React.FC<ILoadingPage> = ({}) => {
-  const [progress, setProgress] = React.useState(13);
+  const [progress, setProgress] = useState(13);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const timer = setTimeout(() => setProgress(93), 10);
     return () => clearTimeout(timer);
   }, []);

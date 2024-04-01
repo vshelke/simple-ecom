@@ -71,7 +71,8 @@ const LoginPage: React.FC<ILoginPage> = ({}) => {
 
   useEffect(() => {
     localStorage.getItem("token") && router.push("/");
-  }, [router]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="flex h-screen">
@@ -93,7 +94,7 @@ const LoginPage: React.FC<ILoginPage> = ({}) => {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="me@example.com" {...field} />
+                        <Input id="email" placeholder="me@example.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -106,7 +107,7 @@ const LoginPage: React.FC<ILoginPage> = ({}) => {
                     <FormItem>
                       <FormLabel>Password</FormLabel>
                       <FormControl>
-                        <Input type="password" {...field} />
+                        <Input id="password" type="password" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

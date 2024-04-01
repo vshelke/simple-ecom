@@ -77,7 +77,8 @@ const RegisterPage: React.FC<IRegisterPage> = ({}) => {
 
   useEffect(() => {
     localStorage.getItem("token") && router.push("/");
-  }, [router]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="flex h-screen">
@@ -101,7 +102,7 @@ const RegisterPage: React.FC<IRegisterPage> = ({}) => {
                         <FormItem>
                           <FormLabel>First name</FormLabel>
                           <FormControl>
-                            <Input placeholder="Max" {...field} />
+                            <Input id="firstName" placeholder="Max" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -116,7 +117,7 @@ const RegisterPage: React.FC<IRegisterPage> = ({}) => {
                         <FormItem>
                           <FormLabel>Last name</FormLabel>
                           <FormControl>
-                            <Input placeholder="Robinson" {...field} />
+                            <Input id="lastName" placeholder="Robinson" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -132,7 +133,7 @@ const RegisterPage: React.FC<IRegisterPage> = ({}) => {
                       <FormItem>
                         <FormLabel>Email</FormLabel>
                         <FormControl>
-                          <Input placeholder="me@example.com" {...field} />
+                          <Input id="email" placeholder="me@example.com" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -147,7 +148,7 @@ const RegisterPage: React.FC<IRegisterPage> = ({}) => {
                       <FormItem>
                         <FormLabel>Password</FormLabel>
                         <FormControl>
-                          <Input type="password" {...field} />
+                          <Input id="password" type="password" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>

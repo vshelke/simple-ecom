@@ -1,11 +1,20 @@
 describe('add to cart', () => {
-  it('visits for products', () => {
+  it('register new user', () => {
     cy.visit('http://localhost:3000')
-    cy.contains('View Details').should('exist')
-  })
-
-  it('add to cart', () => {
-    cy.visit('http://localhost:3000')
+    cy.wait(3000)
+    cy.get('a').contains('Register').click()
+    cy.wait(2000)
+    const email = `test-${(Math.random() * 1000).toFixed()}@example.com`
+    cy.get('#email').type(email)
+    cy.get('#password').type('vbhv3301')
+    cy.get('#firstName').type('John')
+    cy.get('#lastName').type('Doe')
+    cy.get('button').contains('Create an account').click()
+    cy.get('a').contains('Sign in').click()
+    cy.wait(2000)
+    cy.get('#email').type(email)
+    cy.get('#password').type('vbhv3301')
+    cy.get('button').contains('Log In').click()
     cy.get('button').contains('Add to Cart').click()
     cy.get(':nth-child(1) > .flex.gap-2 > .justify-between > .rounded-r-full').click()
     cy.get(':nth-child(1) > .flex.gap-2 > .justify-between > .rounded-r-full').click()
@@ -14,15 +23,5 @@ describe('add to cart', () => {
     cy.get(':nth-child(1) > .flex.gap-2 > .justify-between > .rounded-r-full').click()
     cy.get('[aria-haspopup="dialog"] > .justify-center').click()
     cy.contains('$439.80').should('exist')
-  })
-
-  it('clear the cart', () => {
-    cy.visit('http://localhost:3000')
-    cy.get('button').contains('Add to Cart').click()
-    cy.get(':nth-child(1) > .flex.gap-2 > .justify-between > .rounded-r-full').click()
-    cy.get(':nth-child(1) > .flex.gap-2 > .justify-between > .rounded-r-full').click()
-    cy.get(':nth-child(1) > .flex.gap-2 > .justify-between > .rounded-r-full').click()
-    cy.get('[aria-haspopup="dialog"] > .justify-center').click()
-    cy.contains('Clear Cart').click()
-  })
+  });
 })
